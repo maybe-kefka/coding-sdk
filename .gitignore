@@ -1,5 +1,5 @@
-dist
-node_modules
-coverage
-*.tsbuildinfo
-scripts/codegen/out/*
+node_modules/
+dist/
+publish-packages/
+*.log
+.DS_Store

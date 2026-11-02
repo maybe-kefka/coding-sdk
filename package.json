@@ -1,111 +1,64 @@
 {
   "name": "coding-sdk",
-  "version": "0.1.0",
-  "description": "ESM-first SDK for CODING Open API.",
-  "type": "module",
+  "version": "0.2.0",
   "sideEffects": false,
-  "engines": {
-    "node": ">=18"
-  },
-  "files": [
-    "dist",
-    "README.md"
-  ],
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "type": "module",
   "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
-    },
-    "./apis": {
-      "types": "./dist/apis/index.d.ts",
-      "import": "./dist/apis/index.js"
-    },
-    "./client": {
-      "types": "./dist/client/index.d.ts",
-      "import": "./dist/client/index.js"
-    },
-    "./errors": {
-      "types": "./dist/core/errors.d.ts",
-      "import": "./dist/core/errors.js"
-    },
-    "./schemas": {
-      "types": "./dist/schemas/index.d.ts",
-      "import": "./dist/schemas/index.js"
-    },
-    "./schemas/user": {
-      "types": "./dist/schemas/user.d.ts",
-      "import": "./dist/schemas/user.js"
-    },
-    "./schemas/issues": {
-      "types": "./dist/schemas/issues.d.ts",
-      "import": "./dist/schemas/issues.js"
-    },
-    "./schemas/git": {
-      "types": "./dist/schemas/git.d.ts",
-      "import": "./dist/schemas/git.js"
-    },
-    "./schemas/projects": {
-      "types": "./dist/schemas/projects.d.ts",
-      "import": "./dist/schemas/projects.js"
-    },
-    "./schemas/mergeRequests": {
-      "types": "./dist/schemas/mergeRequests.d.ts",
-      "import": "./dist/schemas/mergeRequests.js"
-    },
-    "./schemas/serviceHooks": {
-      "types": "./dist/schemas/serviceHooks.d.ts",
-      "import": "./dist/schemas/serviceHooks.js"
-    },
-    "./apis/user": {
-      "types": "./dist/apis/user/index.d.ts",
-      "import": "./dist/apis/user/index.js"
-    },
-    "./apis/issues": {
-      "types": "./dist/apis/issues/index.d.ts",
-      "import": "./dist/apis/issues/index.js"
-    },
-    "./apis/git": {
-      "types": "./dist/apis/git/index.d.ts",
-      "import": "./dist/apis/git/index.js"
-    },
-    "./apis/projects": {
-      "types": "./dist/apis/projects/index.d.ts",
-      "import": "./dist/apis/projects/index.js"
-    },
-    "./apis/mergeRequests": {
-      "types": "./dist/apis/mergeRequests/index.d.ts",
-      "import": "./dist/apis/mergeRequests/index.js"
-    },
-    "./apis/serviceHooks": {
-      "types": "./dist/apis/serviceHooks/index.d.ts",
-      "import": "./dist/apis/serviceHooks/index.js"
-    },
-    "./package.json": "./package.json"
+    ".": "./src/index.ts",
+    "./actions/*": "./src/resources/*.ts",
+    "./all": "./src/resources/index.ts",
+    "./artifact": "./src/resources/artifact/index.ts",
+    "./client": "./src/client/index.ts",
+    "./collaboration": "./src/resources/collaboration/index.ts",
+    "./continuous-deployment": "./src/resources/continuous-deployment/index.ts",
+    "./continuous-integration": "./src/resources/continuous-integration/index.ts",
+    "./core": "./src/core/index.ts",
+    "./export-job": "./src/resources/export-job/index.ts",
+    "./file-storage": "./src/resources/file-storage/index.ts",
+    "./git-repository": "./src/resources/git-repository/index.ts",
+    "./misc": "./src/resources/misc/index.ts",
+    "./organization-and-member": "./src/resources/organization-and-member/index.ts",
+    "./permission": "./src/resources/permission/index.ts",
+    "./program": "./src/resources/program/index.ts",
+    "./project": "./src/resources/project/index.ts",
+    "./related-resource": "./src/resources/related-resource/index.ts",
+    "./team": "./src/resources/team/index.ts",
+    "./service-hook": "./src/resources/service-hook/index.ts",
+    "./schemas/*": "./src/resources/*/schemas.ts",
+    "./testing": "./src/resources/testing/index.ts",
+    "./wiki": "./src/resources/wiki/index.ts",
+    "./errors": "./src/core/error/index.ts",
+    "./transport": "./src/core/transport/index.ts"
   },
+  "module": "src/index.ts",
   "scripts": {
-    "clean": "rimraf dist",
-    "build": "tsup --sourcemap",
-    "build:watch": "tsup --watch",
-    "codegen:manifest": "node ./scripts/codegen/extract-action-manifest.mjs",
-    "codegen:action": "node ./scripts/codegen/generate-action-module.mjs",
-    "codegen:schema": "node ./scripts/codegen/generate-shared-schema-module.mjs",
-    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "build": "tsc --noEmit -p tsconfig.json",
     "test": "vitest run",
-    "test:watch": "vitest",
-    "verify": "npm run typecheck && npm run test && npm run build && npm pack --dry-run",
-    "prepare": "tsup"
+    "typecheck:snapshot": "tsc --noEmit -p tsconfig.snapshot.json"
   },
   "dependencies": {
-    "effect": "^3.13.10"
+    "fp-ts": "^2.16.11",
+    "zod": "^4.4.2"
   },
   "devDependencies": {
-    "@types/node": "^22.15.3",
-    "rimraf": "^6.0.1",
-    "tsup": "^8.3.6",
-    "typescript": "^5.8.3",
-    "vitest": "^3.1.2",
-    "yaml": "^2.8.1"
+    "@types/node": "^26.0.0",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.10"
+  },
+  "peerDependencies": {
+    "typescript": "^6.0.3"
+  },
+  "description": "CODING Open API 的函数式 TypeScript SDK（冻结快照：17 个资源模块、428 个 Action）",
+  "engines": {
+    "node": ">=26"
+  },
+  "files": [
+    "src",
+    "README.md",
+    "AGENTS.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maybe-kefka/coding-sdk.git"
   }
 }
