@@ -65,8 +65,6 @@ npm test
 # 全量快照类型检查（仅修改冻结资源时运行，较重）
 npm run typecheck:snapshot
 
-# 发布到内部 npm 源（禁止直接 npm publish）
-npm publish
 ```
 
 ## 公共入口
